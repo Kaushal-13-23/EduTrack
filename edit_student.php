@@ -94,6 +94,7 @@ if ($student_found && $_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Student - USIAMS</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/validation.js" defer></script>
 </head>
 <body>
     <main class="container">
@@ -120,31 +121,31 @@ if ($student_found && $_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-group">
                     <label for="student_name">Student Name</label>
                     <input type="text" id="student_name" name="student_name" maxlength="100" value="<?php echo esc($values['student_name']); ?>" required>
-                    <span class="field-error" id="student_name-error"><?php echo esc($errors['student_name'] ?? ''); ?></span>
+                    <span class="field-error error" id="student_name-error" style="color: #b91c1c;"><?php echo esc($errors['student_name'] ?? ''); ?></span>
                 </div>
 
                 <div class="form-group">
                     <label for="course">Course</label>
                     <input type="text" id="course" name="course" maxlength="100" value="<?php echo esc($values['course']); ?>" required>
-                    <span class="field-error" id="course-error"><?php echo esc($errors['course'] ?? ''); ?></span>
+                    <span class="field-error error" id="course-error" style="color: #b91c1c;"><?php echo esc($errors['course'] ?? ''); ?></span>
                 </div>
 
                 <div class="form-group">
                     <label for="semester">Semester</label>
                     <input type="number" id="semester" name="semester" min="1" max="12" value="<?php echo esc($values['semester']); ?>" required>
-                    <span class="field-error" id="semester-error"><?php echo esc($errors['semester'] ?? ''); ?></span>
+                    <span class="field-error error" id="semester-error" style="color: #b91c1c;"><?php echo esc($errors['semester'] ?? ''); ?></span>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" maxlength="100" value="<?php echo esc($values['email']); ?>" required>
-                    <span class="field-error" id="email-error"><?php echo esc($errors['email'] ?? ''); ?></span>
+                    <span class="field-error error" id="email-error" style="color: #b91c1c;"><?php echo esc($errors['email'] ?? ''); ?></span>
                 </div>
 
                 <div class="form-group">
                     <label for="contact_no">Contact Number</label>
                     <input type="text" id="contact_no" name="contact_no" maxlength="10" value="<?php echo esc($values['contact_no']); ?>" required>
-                    <span class="field-error" id="contact_no-error"><?php echo esc($errors['contact_no'] ?? ''); ?></span>
+                    <span class="field-error error" id="contact_no-error" style="color: #b91c1c;"><?php echo esc($errors['contact_no'] ?? ''); ?></span>
                 </div>
 
                 <button type="submit">Update</button>

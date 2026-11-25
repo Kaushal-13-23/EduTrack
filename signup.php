@@ -108,31 +108,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <label for="full_name">Full Name</label>
                 <input type="text" id="full_name" name="full_name" maxlength="100" value="<?php echo esc($full_name); ?>" required>
-                <span class="field-error" id="full_name-error"><?php echo esc($errors['full_name'] ?? ''); ?></span>
+                <span class="field-error error" id="full_name-error" style="color: #b91c1c;"><?php echo esc($errors['full_name'] ?? ''); ?></span>
             </div>
 
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" maxlength="30" value="<?php echo esc($username); ?>" required>
-                <span class="field-error" id="username-error"><?php echo esc($errors['username'] ?? ''); ?></span>
+                <span class="field-error error" id="username-error" style="color: #b91c1c;"><?php echo esc($errors['username'] ?? ''); ?></span>
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" maxlength="100" value="<?php echo esc($email); ?>" required>
-                <span class="field-error" id="email-error"><?php echo esc($errors['email'] ?? ''); ?></span>
+                <span class="field-error error" id="email-error" style="color: #b91c1c;"><?php echo esc($errors['email'] ?? ''); ?></span>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
-                <span class="field-error" id="password-error"><?php echo esc($errors['password'] ?? ''); ?></span>
+                <span class="field-error error" id="password-error" style="color: #b91c1c;"><?php echo esc($errors['password'] ?? ''); ?></span>
             </div>
 
             <div class="form-group">
                 <label for="confirm_password">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
-                <span class="field-error" id="confirm_password-error"><?php echo esc($errors['confirm_password'] ?? ''); ?></span>
+                <span class="field-error error" id="confirm_password-error" style="color: #b91c1c;"><?php echo esc($errors['confirm_password'] ?? ''); ?></span>
             </div>
 
             <button type="submit">Sign Up</button>

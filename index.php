@@ -36,13 +36,13 @@ $error_msg = get_flash('error');
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" maxlength="30" required>
-                <span class="field-error" id="username-error"></span>
+                <span class="field-error error" id="username-error" style="color: #b91c1c;"></span>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
-                <span class="field-error" id="password-error"></span>
+                <span class="field-error error" id="password-error" style="color: #b91c1c;"></span>
             </div>
 
             <button type="submit">Login</button>
