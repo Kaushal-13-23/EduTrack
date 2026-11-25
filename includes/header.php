@@ -1,6 +1,11 @@
 <?php
 // Shared header and navigation bar for authenticated USIAMS pages.
 
+if (PHP_SAPI !== 'cli' && isset($_SERVER['SCRIPT_FILENAME']) && realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
+    http_response_code(403);
+    exit('Forbidden');
+}
+
 $title = isset($page_title) && $page_title !== '' ? $page_title : 'USIAMS';
 $current_page = isset($active_page) && $active_page !== ''
     ? $active_page

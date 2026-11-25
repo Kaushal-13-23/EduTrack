@@ -1,6 +1,14 @@
 <?php
 // Reusable MySQL (mysqli) connection and prepared statement helper for USIAMS.
 
+if (PHP_SAPI !== 'cli' && isset($_SERVER['SCRIPT_FILENAME']) && realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
+    http_response_code(403);
+    exit('Forbidden');
+}
+
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+
 $db_host = 'localhost';
 $db_user = 'root';
 $db_pass = '';

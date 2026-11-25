@@ -1,12 +1,21 @@
 <?php
 // Session management, authentication guard, flash helpers, and output escaping for USIAMS.
 
+if (PHP_SAPI !== 'cli' && isset($_SERVER['SCRIPT_FILENAME']) && realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
+    http_response_code(403);
+    exit('Forbidden');
+}
+
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+
 /**
  * Start the PHP session safely if one is not already active.
  */
 function start_session_safely(): void
 {
     if (session_status() === PHP_SESSION_NONE) {
+        ini_set('session.use_strict_mode', '1');
         session_set_cookie_params([
             'lifetime' => 0,
             'path' => '/',

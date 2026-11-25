@@ -97,7 +97,7 @@ require_once __DIR__ . '/includes/header.php';
                             <td><?php echo esc($student['email']); ?></td>
                             <td><?php echo esc($student['contact_no']); ?></td>
                             <td class="actions-cell">
-                                <a href="edit_student.php?reg_no=<?php echo urlencode($student['reg_no']); ?>">Edit</a>
+                                <a href="<?php echo esc('edit_student.php?reg_no=' . urlencode($student['reg_no'])); ?>">Edit</a>
                                 <span class="action-sep">|</span>
                                 <form action="delete_student.php" method="post" class="inline-form" onsubmit="return confirm('Are you sure you want to delete this student record?');">
                                     <input type="hidden" name="reg_no" value="<?php echo esc($student['reg_no']); ?>">

@@ -1,6 +1,11 @@
 <?php
 // Helper for atomic regeneration of students.xml from MySQL using DOMDocument.
 
+if (PHP_SAPI !== 'cli' && isset($_SERVER['SCRIPT_FILENAME']) && realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
+    http_response_code(403);
+    exit('Forbidden');
+}
+
 /**
  * Append a child element with an automatically escaped text node.
  */

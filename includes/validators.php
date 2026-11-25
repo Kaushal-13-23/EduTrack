@@ -2,6 +2,11 @@
 // Centralized server-side validation functions for USIAMS.
 // Rules and error messages intentionally mirror js/validation.js.
 
+if (PHP_SAPI !== 'cli' && isset($_SERVER['SCRIPT_FILENAME']) && realpath($_SERVER['SCRIPT_FILENAME']) === __FILE__) {
+    http_response_code(403);
+    exit('Forbidden');
+}
+
 /**
  * Validate a field as a non-empty email matching format and length <= 100.
  */
