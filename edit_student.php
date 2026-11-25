@@ -54,6 +54,9 @@ if ($reg_no === '') {
 }
 
 if ($student_found && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!verify_csrf_token()) {
+        $general_error = 'Invalid or expired form submission. Please try again.';
+    } else {
     $validation = validate_student_fields($_POST, false);
     $values['student_name'] = $validation['values']['student_name'];
     $values['course'] = $validation['values']['course'];
@@ -90,6 +93,7 @@ if ($student_found && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $general_error = 'Unable to update student record. Please try again.';
     }
+    }
 }
 
 $page_title = 'Edit Student - USIAMS';
@@ -108,6 +112,7 @@ require_once __DIR__ . '/includes/header.php';
 
     <?php if ($student_found): ?>
         <form id="editStudentForm" action="edit_student.php" method="post" novalidate>
+            <?php echo csrf_field(); ?>
             <div class="form-group">
                 <label for="reg_no">Registration Number</label>
                 <input type="text" id="reg_no" name="reg_no" value="<?php echo esc($values['reg_no']); ?>" readonly>

@@ -90,3 +90,37 @@ function esc(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
+
+/**
+ * Return the per-session CSRF token, generating one if absent.
+ */
+function get_csrf_token(): string
+{
+    start_session_safely();
+    if (empty($_SESSION['csrf_token']) || !is_string($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+/**
+ * Render a hidden HTML input containing the current session CSRF token.
+ */
+function csrf_field(): string
+{
+    return '<input type="hidden" name="csrf_token" value="' . esc(get_csrf_token()) . '">';
+}
+
+/**
+ * Verify a submitted CSRF token against the session token in constant time.
+ */
+function verify_csrf_token(?string $token = null): bool
+{
+    start_session_safely();
+    $submitted = $token ?? (string) ($_POST['csrf_token'] ?? '');
+    $stored = isset($_SESSION['csrf_token']) && is_string($_SESSION['csrf_token'])
+        ? $_SESSION['csrf_token']
+        : '';
+
+    return $stored !== '' && $submitted !== '' && hash_equals($stored, $submitted);
+}

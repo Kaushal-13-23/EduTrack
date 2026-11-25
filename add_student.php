@@ -20,6 +20,9 @@ $errors = [];
 $general_error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!verify_csrf_token()) {
+        $general_error = 'Invalid or expired form submission. Please try again.';
+    } else {
     $validation = validate_student_fields($_POST, true);
     $values = $validation['values'];
     $errors = $validation['errors'];
@@ -72,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
+    }
 }
 
 $page_title = 'Add Student - USIAMS';
@@ -89,6 +93,7 @@ require_once __DIR__ . '/includes/header.php';
     <?php endif; ?>
 
     <form id="addStudentForm" action="add_student.php" method="post" novalidate>
+        <?php echo csrf_field(); ?>
         <div class="form-group">
             <label for="reg_no">Registration Number</label>
             <input type="text" id="reg_no" name="reg_no" maxlength="15" value="<?php echo esc($values['reg_no']); ?>" required>

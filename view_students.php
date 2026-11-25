@@ -100,6 +100,7 @@ require_once __DIR__ . '/includes/header.php';
                                 <a href="<?php echo esc('edit_student.php?reg_no=' . urlencode($student['reg_no'])); ?>">Edit</a>
                                 <span class="action-sep">|</span>
                                 <form action="delete_student.php" method="post" class="inline-form" onsubmit="return confirm('Are you sure you want to delete this student record?');">
+                                    <?php echo csrf_field(); ?>
                                     <input type="hidden" name="reg_no" value="<?php echo esc($student['reg_no']); ?>">
                                     <button type="submit" class="btn-link-danger">Delete</button>
                                 </form>

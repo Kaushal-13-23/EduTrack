@@ -16,6 +16,9 @@ $errors = [];
 $general_error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!verify_csrf_token()) {
+        $general_error = 'Invalid or expired form submission. Please try again.';
+    } else {
     $validation = validate_signup_fields($_POST);
     $full_name = $validation['values']['full_name'];
     $username = $validation['values']['username'];
@@ -57,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $general_error = 'Unable to complete registration right now. Please try again.';
         }
     }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -79,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <form id="signupForm" action="signup.php" method="post" novalidate>
+                <?php echo csrf_field(); ?>
                 <div class="form-group">
                     <label for="full_name">Full Name</label>
                     <input type="text" id="full_name" name="full_name" maxlength="100" value="<?php echo esc($full_name); ?>" required>

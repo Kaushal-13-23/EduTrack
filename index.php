@@ -36,6 +36,7 @@ $old_username = get_flash('old_username');
             <?php endif; ?>
 
             <form id="loginForm" action="login_process.php" method="post" novalidate>
+                <?php echo csrf_field(); ?>
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" maxlength="30" value="<?php echo esc($old_username); ?>" required>

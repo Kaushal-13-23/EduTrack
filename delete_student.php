@@ -10,6 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+if (!verify_csrf_token()) {
+    set_flash('error', 'Invalid or expired form submission. Please try again.');
+    header('Location: view_students.php');
+    exit;
+}
+
 $reg_no = trim((string) ($_POST['reg_no'] ?? ''));
 
 if ($reg_no === '') {

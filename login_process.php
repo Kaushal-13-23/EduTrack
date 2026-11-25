@@ -9,6 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+if (!verify_csrf_token()) {
+    set_flash('error', 'Invalid or expired form submission. Please try again.');
+    header('Location: index.php');
+    exit;
+}
+
 $validation = validate_login_fields($_POST);
 $username = $validation['values']['username'];
 $password = $validation['values']['password'];
@@ -50,6 +56,7 @@ start_session_safely();
 session_regenerate_id(true);
 $_SESSION['user_id'] = (int) $user['user_id'];
 $_SESSION['username'] = $user['username'];
+unset($_SESSION['csrf_token']);
 
 header('Location: dashboard.php');
 exit;
