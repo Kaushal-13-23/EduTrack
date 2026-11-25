@@ -19,6 +19,7 @@ if ($reg_no === '') {
 }
 
 require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/xml_helper.php';
 
 $existing = execute_prepared(
     $conn,
@@ -42,8 +43,12 @@ if ($existing === false) {
     );
 
     if ($deleted === true) {
-        // TODO (Phase 5): Call XML regeneration helper (includes/xml_helper.php) to update students.xml.
-        set_flash('success', 'Student record deleted successfully.');
+        $xml_ok = regenerate_students_xml($conn);
+        if ($xml_ok) {
+            set_flash('success', 'Student record deleted successfully.');
+        } else {
+            set_flash('success', 'Student record deleted, but XML export could not be updated.');
+        }
     } else {
         set_flash('error', 'Unable to delete student record. Please try again.');
     }

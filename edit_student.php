@@ -6,6 +6,7 @@ require_login();
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/validators.php';
+require_once __DIR__ . '/includes/xml_helper.php';
 
 $reg_no = trim((string) ($_SERVER['REQUEST_METHOD'] === 'POST' ? ($_POST['reg_no'] ?? '') : ($_GET['reg_no'] ?? '')));
 $student_found = false;
@@ -77,8 +78,12 @@ if ($student_found && $_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         if ($updated === true) {
-            // TODO (Phase 5): Call XML regeneration helper (includes/xml_helper.php) to update students.xml.
-            set_flash('success', 'Student record updated successfully.');
+            $xml_ok = regenerate_students_xml($conn);
+            if ($xml_ok) {
+                set_flash('success', 'Student record updated successfully.');
+            } else {
+                set_flash('success', 'Student record updated, but XML export could not be updated.');
+            }
             header('Location: view_students.php');
             exit;
         }

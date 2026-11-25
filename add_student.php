@@ -6,6 +6,7 @@ require_login();
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/validators.php';
+require_once __DIR__ . '/includes/xml_helper.php';
 
 $values = [
     'reg_no'       => '',
@@ -54,8 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             if ($inserted === true) {
-                // TODO (Phase 5): Call XML regeneration helper (includes/xml_helper.php) to update students.xml.
-                set_flash('success', 'Student record added successfully.');
+                $xml_ok = regenerate_students_xml($conn);
+                if ($xml_ok) {
+                    set_flash('success', 'Student record added successfully.');
+                } else {
+                    set_flash('success', 'Student record added, but XML export could not be updated.');
+                }
                 header('Location: view_students.php');
                 exit;
             }
