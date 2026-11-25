@@ -1,1 +1,64 @@
-<?php // Splash and login page for USIAMS.
+<?php
+// Splash login page for USIAMS.
+
+require_once __DIR__ . '/includes/auth.php';
+
+if (is_logged_in()) {
+    header('Location: dashboard.php');
+    exit;
+}
+
+$success_msg = get_flash('success');
+$error_msg = get_flash('error');
+$old_username = get_flash('old_username');
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - USIAMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/validation.js" defer></script>
+</head>
+<body>
+    <main class="auth-wrapper">
+        <section class="auth-card">
+            <h1>USIAMS Login</h1>
+            <p class="auth-subtitle">Sign in to manage student and academic records</p>
+
+            <?php if ($success_msg !== ''): ?>
+                <p class="alert alert-success" role="status"><?php echo esc($success_msg); ?></p>
+            <?php endif; ?>
+
+            <?php if ($error_msg !== ''): ?>
+                <p class="alert alert-error" role="alert"><?php echo esc($error_msg); ?></p>
+            <?php endif; ?>
+
+            <form id="loginForm" action="login_process.php" method="post" novalidate>
+                <?php echo csrf_field(); ?>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" maxlength="30" value="<?php echo esc($old_username); ?>" required>
+                    <span class="field-error error" id="username-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="field-error error" id="password-error"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+
+            <p class="auth-footer">Don't have an account? <a href="signup.php">Sign Up</a></p>
+        </section>
+    </main>
+    <footer class="site-footer">
+        University Student Information and Academic Management System (USIAMS)
+    </footer>
+</body>
+</html>
