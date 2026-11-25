@@ -10,6 +10,7 @@ if (is_logged_in()) {
 
 $success_msg = get_flash('success');
 $error_msg = get_flash('error');
+$old_username = get_flash('old_username');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +36,7 @@ $error_msg = get_flash('error');
         <form id="loginForm" action="login_process.php" method="post" novalidate>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" maxlength="30" required>
+                <input type="text" id="username" name="username" maxlength="30" value="<?php echo esc($old_username); ?>" required>
                 <span class="field-error error" id="username-error" style="color: #b91c1c;"></span>
             </div>
 

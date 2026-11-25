@@ -2,6 +2,7 @@
 // User registration (sign-up) page and handler for USIAMS.
 
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/validators.php';
 
 if (is_logged_in()) {
     header('Location: dashboard.php');
@@ -15,41 +16,12 @@ $errors = [];
 $general_error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $full_name = trim((string) ($_POST['full_name'] ?? ''));
-    $username = trim((string) ($_POST['username'] ?? ''));
-    $email = trim((string) ($_POST['email'] ?? ''));
-    $password = (string) ($_POST['password'] ?? '');
-    $confirm_password = (string) ($_POST['confirm_password'] ?? '');
-
-    if ($full_name === '') {
-        $errors['full_name'] = 'Full name is required.';
-    } elseif (strlen($full_name) < 2 || strlen($full_name) > 100) {
-        $errors['full_name'] = 'Full name must be 2 to 100 characters.';
-    }
-
-    if ($username === '') {
-        $errors['username'] = 'Username is required.';
-    } elseif (!preg_match('/^[A-Za-z0-9_]{4,30}$/', $username)) {
-        $errors['username'] = 'Username must be 4-30 characters (letters, digits, underscore).';
-    }
-
-    if ($email === '') {
-        $errors['email'] = 'Email is required.';
-    } elseif (strlen($email) > 100 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-        $errors['email'] = 'Please enter a valid email address.';
-    }
-
-    if ($password === '') {
-        $errors['password'] = 'Password is required.';
-    } elseif (strlen($password) < 6) {
-        $errors['password'] = 'Password must be at least 6 characters.';
-    }
-
-    if ($confirm_password === '') {
-        $errors['confirm_password'] = 'Please confirm your password.';
-    } elseif ($password !== $confirm_password) {
-        $errors['confirm_password'] = 'Passwords do not match.';
-    }
+    $validation = validate_signup_fields($_POST);
+    $full_name = $validation['values']['full_name'];
+    $username = $validation['values']['username'];
+    $email = $validation['values']['email'];
+    $password = $validation['values']['password'];
+    $errors = $validation['errors'];
 
     if (empty($errors)) {
         require_once __DIR__ . '/includes/db.php';

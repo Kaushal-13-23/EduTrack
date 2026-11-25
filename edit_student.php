@@ -5,7 +5,7 @@ require_once __DIR__ . '/includes/auth.php';
 require_login();
 
 require_once __DIR__ . '/includes/db.php';
-require_once __DIR__ . '/includes/student_helper.php';
+require_once __DIR__ . '/includes/validators.php';
 
 $reg_no = trim((string) ($_SERVER['REQUEST_METHOD'] === 'POST' ? ($_POST['reg_no'] ?? '') : ($_GET['reg_no'] ?? '')));
 $student_found = false;

@@ -2,16 +2,19 @@
 // Login request handler for USIAMS (POST only).
 
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/validators.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');
     exit;
 }
 
-$username = trim((string) ($_POST['username'] ?? ''));
-$password = (string) ($_POST['password'] ?? '');
+$validation = validate_login_fields($_POST);
+$username = $validation['values']['username'];
+$password = $validation['values']['password'];
 
-if ($username === '' || $password === '') {
+if (!empty($validation['errors'])) {
+    set_flash('old_username', $username);
     set_flash('error', 'Invalid username or password.');
     header('Location: index.php');
     exit;
@@ -27,6 +30,7 @@ $result = execute_prepared(
 );
 
 if ($result === false) {
+    set_flash('old_username', $username);
     set_flash('error', 'Unable to process login right now. Please try again.');
     header('Location: index.php');
     exit;
@@ -36,6 +40,7 @@ $user = $result->fetch_assoc();
 $result->free();
 
 if (!$user || !password_verify($password, $user['password_hash'])) {
+    set_flash('old_username', $username);
     set_flash('error', 'Invalid username or password.');
     header('Location: index.php');
     exit;
