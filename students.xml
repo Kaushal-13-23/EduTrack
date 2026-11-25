@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<students></students>
+<students>
+  <student>
+    <regno>REG2026001</regno>
+    <name>Aarav Sharma</name>
+    <course>BTech Computer Science</course>
+    <semester>4</semester>
+    <email>aarav.sharma@example.edu</email>
+    <contact>9876543210</contact>
+  </student>
+  <student>
+    <regno>REG2026002</regno>
+    <name>Priya Nair</name>
+    <course>MSc Data Science</course>
+    <semester>2</semester>
+    <email>priya.nair@example.edu</email>
+    <contact>9123456780</contact>
+  </student>
+</students>
