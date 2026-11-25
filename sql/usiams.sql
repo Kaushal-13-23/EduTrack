@@ -1,0 +1,1 @@
+-- Database schema for USIAMS (usiams_db).
