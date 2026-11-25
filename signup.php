@@ -69,48 +69,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="js/validation.js" defer></script>
 </head>
 <body>
-    <main class="container">
-        <h1>USIAMS Sign Up</h1>
+    <main class="auth-wrapper">
+        <section class="auth-card">
+            <h1>USIAMS Sign Up</h1>
+            <p class="auth-subtitle">Create a new administrator account</p>
 
-        <?php if ($general_error !== ''): ?>
-            <p class="alert alert-error" role="alert"><?php echo esc($general_error); ?></p>
-        <?php endif; ?>
+            <?php if ($general_error !== ''): ?>
+                <p class="alert alert-error" role="alert"><?php echo esc($general_error); ?></p>
+            <?php endif; ?>
 
-        <form id="signupForm" action="signup.php" method="post" novalidate>
-            <div class="form-group">
-                <label for="full_name">Full Name</label>
-                <input type="text" id="full_name" name="full_name" maxlength="100" value="<?php echo esc($full_name); ?>" required>
-                <span class="field-error error" id="full_name-error" style="color: #b91c1c;"><?php echo esc($errors['full_name'] ?? ''); ?></span>
-            </div>
+            <form id="signupForm" action="signup.php" method="post" novalidate>
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" maxlength="100" value="<?php echo esc($full_name); ?>" required>
+                    <span class="field-error error" id="full_name-error"><?php echo esc($errors['full_name'] ?? ''); ?></span>
+                </div>
 
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" maxlength="30" value="<?php echo esc($username); ?>" required>
-                <span class="field-error error" id="username-error" style="color: #b91c1c;"><?php echo esc($errors['username'] ?? ''); ?></span>
-            </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" maxlength="30" value="<?php echo esc($username); ?>" required>
+                    <span class="field-error error" id="username-error"><?php echo esc($errors['username'] ?? ''); ?></span>
+                </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" maxlength="100" value="<?php echo esc($email); ?>" required>
-                <span class="field-error error" id="email-error" style="color: #b91c1c;"><?php echo esc($errors['email'] ?? ''); ?></span>
-            </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" maxlength="100" value="<?php echo esc($email); ?>" required>
+                    <span class="field-error error" id="email-error"><?php echo esc($errors['email'] ?? ''); ?></span>
+                </div>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-                <span class="field-error error" id="password-error" style="color: #b91c1c;"><?php echo esc($errors['password'] ?? ''); ?></span>
-            </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="field-error error" id="password-error"><?php echo esc($errors['password'] ?? ''); ?></span>
+                </div>
 
-            <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
-                <span class="field-error error" id="confirm_password-error" style="color: #b91c1c;"><?php echo esc($errors['confirm_password'] ?? ''); ?></span>
-            </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                    <span class="field-error error" id="confirm_password-error"><?php echo esc($errors['confirm_password'] ?? ''); ?></span>
+                </div>
 
-            <button type="submit">Sign Up</button>
-        </form>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </div>
+            </form>
 
-        <p>Already have an account? <a href="index.php">Login</a></p>
+            <p class="auth-footer">Already have an account? <a href="index.php">Login</a></p>
+        </section>
     </main>
+    <footer class="site-footer">
+        University Student Information and Academic Management System (USIAMS)
+    </footer>
 </body>
 </html>

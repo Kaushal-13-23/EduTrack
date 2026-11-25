@@ -73,71 +73,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+$page_title = 'Add Student - USIAMS';
+$active_page = 'add_student.php';
+$include_validation_js = true;
+require_once __DIR__ . '/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student - USIAMS</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/validation.js" defer></script>
-</head>
-<body>
-    <main class="container">
-        <header>
-            <h1>Add Student</h1>
-            <nav aria-label="Page Navigation">
-                <a href="view_students.php">View Students</a> |
-                <a href="dashboard.php">Dashboard</a> |
-                <a href="logout.php">Logout</a>
-            </nav>
-        </header>
+<section class="card form-card">
+    <div class="page-header">
+        <h1>Add Student</h1>
+    </div>
 
-        <?php if ($general_error !== ''): ?>
-            <p class="alert alert-error" role="alert"><?php echo esc($general_error); ?></p>
-        <?php endif; ?>
+    <?php if ($general_error !== ''): ?>
+        <p class="alert alert-error" role="alert"><?php echo esc($general_error); ?></p>
+    <?php endif; ?>
 
-        <form id="addStudentForm" action="add_student.php" method="post" novalidate>
-            <div class="form-group">
-                <label for="reg_no">Registration Number</label>
-                <input type="text" id="reg_no" name="reg_no" maxlength="15" value="<?php echo esc($values['reg_no']); ?>" required>
-                <span class="field-error error" id="reg_no-error" style="color: #b91c1c;"><?php echo esc($errors['reg_no'] ?? ''); ?></span>
-            </div>
+    <form id="addStudentForm" action="add_student.php" method="post" novalidate>
+        <div class="form-group">
+            <label for="reg_no">Registration Number</label>
+            <input type="text" id="reg_no" name="reg_no" maxlength="15" value="<?php echo esc($values['reg_no']); ?>" required>
+            <span class="field-error error" id="reg_no-error"><?php echo esc($errors['reg_no'] ?? ''); ?></span>
+        </div>
 
-            <div class="form-group">
-                <label for="student_name">Student Name</label>
-                <input type="text" id="student_name" name="student_name" maxlength="100" value="<?php echo esc($values['student_name']); ?>" required>
-                <span class="field-error error" id="student_name-error" style="color: #b91c1c;"><?php echo esc($errors['student_name'] ?? ''); ?></span>
-            </div>
+        <div class="form-group">
+            <label for="student_name">Student Name</label>
+            <input type="text" id="student_name" name="student_name" maxlength="100" value="<?php echo esc($values['student_name']); ?>" required>
+            <span class="field-error error" id="student_name-error"><?php echo esc($errors['student_name'] ?? ''); ?></span>
+        </div>
 
-            <div class="form-group">
-                <label for="course">Course</label>
-                <input type="text" id="course" name="course" maxlength="100" value="<?php echo esc($values['course']); ?>" required>
-                <span class="field-error error" id="course-error" style="color: #b91c1c;"><?php echo esc($errors['course'] ?? ''); ?></span>
-            </div>
+        <div class="form-group">
+            <label for="course">Course</label>
+            <input type="text" id="course" name="course" maxlength="100" value="<?php echo esc($values['course']); ?>" required>
+            <span class="field-error error" id="course-error"><?php echo esc($errors['course'] ?? ''); ?></span>
+        </div>
 
-            <div class="form-group">
-                <label for="semester">Semester</label>
-                <input type="number" id="semester" name="semester" min="1" max="12" value="<?php echo esc($values['semester']); ?>" required>
-                <span class="field-error error" id="semester-error" style="color: #b91c1c;"><?php echo esc($errors['semester'] ?? ''); ?></span>
-            </div>
+        <div class="form-group">
+            <label for="semester">Semester</label>
+            <input type="number" id="semester" name="semester" min="1" max="12" value="<?php echo esc($values['semester']); ?>" required>
+            <span class="field-error error" id="semester-error"><?php echo esc($errors['semester'] ?? ''); ?></span>
+        </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" maxlength="100" value="<?php echo esc($values['email']); ?>" required>
-                <span class="field-error error" id="email-error" style="color: #b91c1c;"><?php echo esc($errors['email'] ?? ''); ?></span>
-            </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" maxlength="100" value="<?php echo esc($values['email']); ?>" required>
+            <span class="field-error error" id="email-error"><?php echo esc($errors['email'] ?? ''); ?></span>
+        </div>
 
-            <div class="form-group">
-                <label for="contact_no">Contact Number</label>
-                <input type="text" id="contact_no" name="contact_no" maxlength="10" value="<?php echo esc($values['contact_no']); ?>" required>
-                <span class="field-error error" id="contact_no-error" style="color: #b91c1c;"><?php echo esc($errors['contact_no'] ?? ''); ?></span>
-            </div>
+        <div class="form-group">
+            <label for="contact_no">Contact Number</label>
+            <input type="text" id="contact_no" name="contact_no" maxlength="10" value="<?php echo esc($values['contact_no']); ?>" required>
+            <span class="field-error error" id="contact_no-error"><?php echo esc($errors['contact_no'] ?? ''); ?></span>
+        </div>
 
-            <button type="submit">Save</button>
-            <button type="reset">Reset</button>
-        </form>
-    </main>
-</body>
-</html>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <a class="btn btn-secondary" href="view_students.php">Cancel</a>
+        </div>
+    </form>
+</section>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>

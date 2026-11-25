@@ -36,34 +36,29 @@ if (!file_exists($xml_path) || !is_readable($xml_path)) {
         }
     }
 }
+
+$page_title = 'XML Student Records - USIAMS';
+$active_page = 'xml_view.php';
+require_once __DIR__ . '/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XML Student Records - USIAMS</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <main class="container">
-        <header>
-            <h1>XML Student Records</h1>
-            <nav aria-label="Page Navigation">
-                <a href="dashboard.php">Back to Dashboard</a> |
-                <a href="view_students.php">View Students</a> |
-                <a href="logout.php">Logout</a>
-            </nav>
-        </header>
+<section class="card">
+    <div class="page-header">
+        <h1>XML Student Records</h1>
+        <div class="form-actions">
+            <a class="btn btn-secondary" href="dashboard.php">Back to Dashboard</a>
+            <a class="btn btn-secondary" href="view_students.php">View Students</a>
+        </div>
+    </div>
 
-        <?php if ($status_message !== ''): ?>
-            <p class="alert alert-error" role="alert"><?php echo esc($status_message); ?></p>
+    <?php if ($status_message !== ''): ?>
+        <p class="alert alert-error" role="alert"><?php echo esc($status_message); ?></p>
+    <?php else: ?>
+        <p class="record-count"><strong>Total Records:</strong> <?php echo count($records); ?></p>
+
+        <?php if (empty($records)): ?>
+            <p class="empty-state">No student records found in XML.</p>
         <?php else: ?>
-            <p><strong>Total Records:</strong> <?php echo count($records); ?></p>
-
-            <?php if (empty($records)): ?>
-                <p>No student records found in XML.</p>
-            <?php else: ?>
+            <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
@@ -88,8 +83,8 @@ if (!file_exists($xml_path) || !is_readable($xml_path)) {
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            <?php endif; ?>
+            </div>
         <?php endif; ?>
-    </main>
-</body>
-</html>
+    <?php endif; ?>
+</section>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
